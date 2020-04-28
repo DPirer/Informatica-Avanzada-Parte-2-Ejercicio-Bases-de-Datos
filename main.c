@@ -12,6 +12,7 @@ int contador = 0;
 int numero_comando = 0;
 int contador2;
 int contadorfinal = 0;
+char respuesta;
 
 /* Consideramos que se piden ciertos datos porque son de importancia para la empresa, de forma que en vez de simplemente
  * imprimirlos, los almacenaremos en una estructura, de forma que podamos operar con ellos, por ejemplo en el caso de
@@ -90,7 +91,23 @@ int main() {
     // Cerramos la base de datos
     sqlite3_close(db);
     
+    // Y le pedimos al usuario que si quiere escribir los resultados en un txt
+    printf("Desea guardar los resultados en un txt? (y/n): ");
+    scanf("%s",&respuesta);
+    if (respuesta == 'y'){
+    	
+    	FILE *f = fopen("Resultado.txt", "w");
+    	for (i = 0; i < contadorfinal; i++){
+        fprintf(f,"%s %s, %s, %s, %s, %s\n", empleado[i].nombre, empleado[i].apellido, empleado[0].ubicacion_departamento, empleado[0].numero_proyecto, empleado[0].nombre_departamento,empleado[i].horas);
+    	}
+    	
+    	fclose(f);    	
+    	printf("Archivo creado con exito\n\n");
+    }
+
     system("pause");
+    
+    return 0;
 }
 
 
